@@ -83,9 +83,9 @@ public class NoncomparativeSort {
 	 * 
 	 * @param arr
 	 */
-	public static void bucketSort(int[] arr) {
+	public static void bucketSort(int[] arr, int bucketNum) {
 		int n = arr.length;
-		int bn = 5; // 桶的数量
+		int bn = bucketNum > n ? n : bucketNum; // 桶的数量
 		int c[] = new int[bn];
 		int min = arr[0], max = arr[0];
 		for (int i = 0; i < n; i++) {
@@ -94,7 +94,8 @@ public class NoncomparativeSort {
 			if (arr[i] < min)
 				min = arr[i];
 		}
-		int scale = (max - min) / bn; // 桶的数据范围
+		int scale = (int) Math.ceil((double) (max - min) / bn); // 桶的数据范围
+		scale = scale > n ? n : scale;
 		for (int i = 0; i < n; i++) {
 			int index = (arr[i] - min) / scale;
 			c[index < bn ? index : bn - 1]++;
